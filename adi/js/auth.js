@@ -1,5 +1,4 @@
 import { supabaseService } from './supabase.js';
-import { APP_CONFIG } from './config.js';
 
 class AuthManager {
     constructor() {

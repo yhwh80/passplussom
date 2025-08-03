@@ -6,7 +6,18 @@ const CONFIG = {
     }
 };
 
+// Application configuration
+const APP_CONFIG = {
+    DEFAULT_HOURLY_RATE: 25.00,
+    CURRENCY: 'GBP',
+    CURRENCY_SYMBOL: '£'
+};
+
 // Make CONFIG available globally
 if (typeof window !== 'undefined') {
     window.CONFIG = CONFIG;
+    window.APP_CONFIG = APP_CONFIG;
 }
+
+// Export for ES6 modules
+export { CONFIG, APP_CONFIG };
