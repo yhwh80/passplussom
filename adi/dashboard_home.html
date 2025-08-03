@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Home – PassPlusSOM</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f6f8fa;
+            color: #1d2c43;
+        }
+        .sidebar {
+            position: fixed; left: 0; top: 0; bottom: 0;
+            width: 220px;
+            background: #24334a;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+        .sidebar h2 {
+            font-size: 1.45em;
+            margin: 32px 0 16px 32px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+        .sidebar nav { flex: 1 1 auto; }
+        .sidebar a {
+            display: flex; align-items: center;
+            padding: 14px 32px; color: #bfc8de; text-decoration: none;
+            font-size: 1.08em; transition: background .12s, color .12s;
+            border-left: 4px solid transparent;
+        }
+        .sidebar a svg {
+            margin-right: 14px; fill: #bfc8de;
+        }
+        .sidebar a.active, .sidebar a:hover {
+            background: #192130;
+            color: #ffd64a;
+            border-left: 4px solid #ffd64a;
+        }
+        .sidebar-bottom {
+            margin: 32px 0 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fab {
+            background: #ffd64a;
+            border-radius: 50%;
+            width: 48px; height: 48px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2em;
+            color: #222;
+            cursor: pointer;
+            border: 0;
+            box-shadow: 0 2px 8px #ffd62055;
+        }
+        .main { margin-left: 220px; min-height: 100vh; background: #f6f8fa; }
+        .topbar {
+            background: #3160e5;
+            color: #fff;
+            padding: 16px 36px 5px 36px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .user { display: flex; align-items: center; }
+        .user-avatar {
+            width: 40px; height: 40px; border-radius: 50%; background: #ffd64a; color: #24334a;
+            font-weight: 700; font-size: 1.23em; margin-left: 16px; display: flex; align-items: center; justify-content: center;
+        }
+
+        .date-strip-wrap {
+            background: #FFD64A;
+            margin: 0;
+            padding: 0;
+        }
+        .hero-days {
+            padding: 38px 0 0 0;
+            background: transparent;
+        }
+        .days-list {
+            display: flex; justify-content: center; gap: 44px;
+            margin-bottom: 0;
+        }
+        .days-list .day {
+            display: flex; flex-direction: column; align-items: center; cursor: pointer;
+        }
+        .day-circle {
+            width: 82px; height: 82px; border-radius: 50%;
+            background: #fff; color: #24334a;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 2em; border: 2.5px solid transparent; margin-bottom: 7px;
+            position: relative;
+        }
+        .day.today .day-circle {
+            background: #24334a;
+            color: #ffd64a;
+            border: 2.5px solid #24334a;
+        }
+        .day.selected .day-circle {
+            border-color: #3160e5;
+        }
+        .day-label {
+            font-size: 1.1em; font-weight: 500; color: #24334a;
+            opacity: 0.86;
+        }
+
+        .appointments-center {
+            display: flex; justify-content: center; align-items: flex-start; min-height: 420px; width: 100%; background: #f6f8fa;
+        }
+        .lessons-card {
+            width: 99vw; max-width: 440px;
+            margin-top: -22px;
+            background: #fff;
+            border-radius: 13px;
+            box-shadow: 0 6px 30px 3px #3160e532;
+            border: 1px solid #ebeef0;
+            font-size: 1.06em;
+            overflow: hidden;
+            padding-bottom: 0;
+        }
+        .lc-header {
+            padding: 17px 20px 10px 18px;
+            display: flex; align-items: flex-start; justify-content: space-between;
+            border-bottom: 1px solid #ececec;
+        }
+        .lc-title {
+            color: #7d91ab;
+            font-size: 0.99em;
+            text-transform: uppercase;
+            letter-spacing: 0.045em;
+            margin-bottom: 3px;
+        }
+        .lc-main {
+            font-weight: bold; font-size: 1.23em; color: #1e3047;
+        }
+        .lc-count-date {
+            font-size: 1.07em; color: #8494ad;
+            font-weight: 400; margin-left: 18px; text-align: right;
+        }
+        .lesson-row {
+            display: flex; align-items: flex-start; padding: 18px 20px 12px 18px;
+            border-bottom: 1px solid #f3f5f7; flex-wrap: wrap;
+            cursor: pointer; text-decoration: none; color: inherit; transition: background 0.13s;
+        }
+        .lesson-row:hover { background: #f7fafd; }
+        .lesson-time-block { min-width: 95px; color: #293860; font-weight: bold; text-align: left; }
+        .lesson-time-sub { color: #aeb2bf; margin-bottom: 5px; font-weight: 500; font-size: 0.97em; margin-left: 2px; }
+        .lesson-info-block { flex: 1 1 auto; margin-left: 8px; }
+        .lesson-name { font-weight: bold; color: #10244F; }
+        .lesson-address { color: #7e8897; font-size: 1em; margin-right: 14px; }
+        .lesson-map { color: #3160e5; text-decoration: none; margin-left: 6px; font-weight: 600; font-size: 0.98em; }
+        .lesson-arrow { font-size: 1.17em; color: #b9bdc4; margin-left: 13px; }
+        .break-row {
+            display: flex; justify-content: center; align-items: center; color: #8e9bab;
+            font-size: 1.06em; font-weight: 500; gap: 8px; background: #f5f6f8;
+            border-bottom: 1px solid #eee; padding: 9px 0 7px 0;
+        }
+        .lc-footer {
+            padding: 14px 20px 15px 14px; background: #f9fafc;
+            border-top: 1px solid #ebf0f4; text-align: right; font-size: 1em;
+        }
+        .lc-footer a { color: #3160e5; text-decoration: none; font-weight: 700; font-size: 1.07em; }
+        .lc-footer a:hover { text-decoration: underline; }
+        .no-appointments {
+            font-size: 1.16em; color: #24334a; font-weight: 700;
+            text-align: center; margin-top: 36px;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar { width: 70px; }
+            .main { margin-left: 70px; }
+            .sidebar h2 { font-size: 1em; margin-left: 10px; }
+            .sidebar a span { display: none; }
+        }
+        @media (max-width:600px) {
+            .sidebar { display:none; }
+            .main { margin-left: 0; }
+            .topbar {padding: 11px 9px;}
+            .lessons-card {max-width: 99vw; margin-left: 1vw; margin-right: 1vw;}
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>PassPlusSOM</h2>
+        <nav>
+            <a href="#" class="active">
+                <svg width="22" height="22" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                <span>Home</span></a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M19 3h-1V2h-2v1H8V2H6v1H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zm0-12H5V5h14v2z"/></svg><span>Calendar</span></a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 12c2.5 0 7.5 1.25 7.5 3.75V18h-15v-2.25C4.5 13.25 9.5 12 12 12zm0-2c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg><span>Learners</span></a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M20 6h-2V4c0-1.1-.9-2-2-2H8C6.9 2 6 2.9 6 4v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 8c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm6 6H4V8h2v2h12V8h2v12z"/></svg><span>Jobs</span></a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 4C7.03 4 3 8.03 3 13c0 5.74 9 11 9 11s9-5.47 9-11c0-4.97-4.03-9-9-9zm0 14c-2.67 0-8-1.34-8-4v-.29c2.25 2.21 6.69 3.4 8 3.4s5.75-1.19 8-3.4V14c0 2.66-5.33 4-8 4z"/></svg><span>Finance</span></a>
+        </nav>
+        <div class="sidebar-bottom">
+            <button class="fab" title="Add new">+</button>
+        </div>
+    </div>
+    <div class="main">
+        <div class="topbar">
+            <div><strong>Home</strong></div>
+            <div class="user">
+                Simon Powell
+                <span class="user-avatar">SP</span>
+            </div>
+        </div>
+        <div class="date-strip-wrap">
+            <div class="hero-days" id="heroDays">
+                <div class="days-list" id="daysRow"></div>
+            </div>
+        </div>
+        <div class="appointments-center" id="appointmentsArea"></div>
+    </div>
+    <script>
+        function getWeekDays(centerDate) {
+            // Show Monday to Friday, centered on today
+            let days = [];
+            let current = new Date(centerDate);
+            current.setDate(current.getDate() - 2);
+            for (let i = 0; i < 5; i++) {
+                let d = new Date(current);
+                days.push({
+                    label: d.toLocaleString('en-GB', { weekday: 'short' }),
+                    day: d.getDate(), date: new Date(d),
+                });
+                current.setDate(current.getDate() + 1);
+            }
+            return days;
+        }
+        // Dummy data: lessons by day yyyy-mm-dd
+        const LESSONS = {
+            // Example: today, swap to match date you want to preview
+            [new Date().toISOString().slice(0,10)]: [
+                {
+                    time: '11:00 a.m. – 1:00 p.m.',
+                    name: 'Leah Digby-Thomas',
+                    address: 'RH16 4AA',
+                    map: 'https://maps.google.com/?q=RH16+4AA',
+                },
+                {break: '1 hour break'},
+                {
+                    time: '2:00 p.m. – 4:00 p.m.',
+                    name: 'Charlotte Sleat',
+                    address: 'RH10 5EN',
+                    map: 'https://maps.google.com/?q=RH10+5EN',
+                }
+            ]
+        };
+        function formatDate(date) {
+            return date.toISOString().slice(0,10);
+        }
+
+        // Render UI
+        const daysRow = document.getElementById('daysRow');
+        const appointmentsArea = document.getElementById('appointmentsArea');
+        let selectedDate = new Date();
+        renderDays(selectedDate);
+
+        function renderDays(centerDate) {
+            daysRow.innerHTML = '';
+            const weekDays = getWeekDays(centerDate);
+            weekDays.forEach(d => {
+                const isToday = formatDate(d.date) === formatDate(selectedDate);
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'day' + (isToday ? ' today selected' : '');
+                dayDiv.innerHTML = `<div class="day-circle">${d.day}</div><span class="day-label">${d.label}</span>`;
+                dayDiv.onclick = () => {
+                    selectedDate = new Date(d.date);
+                    renderDays(selectedDate);
+                    updateDayDetails(selectedDate);
+                }
+                daysRow.appendChild(dayDiv);
+            });
+            updateDayDetails(selectedDate);
+        }
+
+        function updateDayDetails(date) {
+            const key = formatDate(date);
+            appointmentsArea.innerHTML = '';
+            if (!LESSONS[key]) {
+                appointmentsArea.innerHTML = `<div class="no-appointments">No appointments on this day</div>`;
+                return;
+            }
+            const lessons = LESSONS[key];
+            let html = `<div class="lessons-card">
+                <div class="lc-header">
+                    <div>
+                        <div class="lc-title">Today's Lessons</div>
+                        <div class="lc-main">${lessons.filter(l=>!l.break).length} lesson${lessons.filter(l=>!l.break).length===1?'':'s'}</div>
+                    </div>
+                    <div class="lc-count-date">${date.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' })}</div>
+                </div>`;
+            lessons.forEach((l, idx) => {
+                if(l.break) {
+                    html += `<div class="break-row">&#8597; <span>${l.break}</span></div>`;
+                } else {
+                    let [start, end] = l.time.split('–').map(s=>s.trim());
+                    html += `<a class="lesson-row" href="#" onclick="alert('Go to learner detail for ${l.name}');return false;">
+                        <div class="lesson-time-block">
+                            <div style="font-weight: bold">${start}</div>
+                            <div class="lesson-time-sub">${end}</div>
+                        </div>
+                        <div class="lesson-info-block">
+                            <div class="lesson-name">${l.name}</div>
+                            <div class="lesson-address">${l.address}<a class="lesson-map" href="${l.map}" target="_blank">Map</a></div>
+                        </div>
+                        <span class="lesson-arrow">&#8594;</span>
+                    </a>`;
+                }
+            });
+            html += `<div class="lc-footer"><a href="#">VIEW CALENDAR &rarr;</a></div></div>`;
+            appointmentsArea.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Pass Plus SOM</title>
+    
+    <!-- PWA Meta -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <!-- SEO Meta -->
+    <meta name="description" content="Login to your Pass Plus SOM account to manage your driving lessons.">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+</head>
+<body class="auth-page">
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="assets/icons/logo.svg" alt="Pass Plus SOM" class="nav-logo">
+                    <span class="nav-title">Pass Plus SOM</span>
+                </a>
+            </div>
+            
+            <div class="nav-actions">
+                <a href="register.html" class="btn btn-ghost">Sign Up</a>
+                <a href="index.html" class="btn btn-outline">Back to Home</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="auth-container">
+            <div class="auth-content">
+                <!-- Auth Form -->
+                <div class="auth-form-container">
+                    <div class="auth-header">
+                        <h1 class="auth-title">Welcome Back</h1>
+                        <p class="auth-subtitle">Sign in to your account to manage your driving lessons</p>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form class="auth-form" id="login-form">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-group">
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    class="form-input"
+                                    placeholder="your.email@example.com"
+                                    required
+                                    autocomplete="email"
+                                >
+                                <div class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-group">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    class="form-input"
+                                    placeholder="Enter your password"
+                                    required
+                                    autocomplete="current-password"
+                                >
+                                <button type="button" class="input-action" id="toggle-password" aria-label="Toggle password visibility">
+                                    <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                    <svg class="eye-off-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: none;">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                                        <line x1="1" y1="1" x2="23" y2="23"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkbox-custom"></span>
+                                Remember me
+                            </label>
+                            
+                            <a href="#forgot-password" class="forgot-password-link" id="forgot-password-link">
+                                Forgot password?
+                            </a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block" id="login-btn">
+                            <span class="btn-text">Sign In</span>
+                            <div class="btn-loading" style="display: none;">
+                                <div class="loading-spinner"></div>
+                                <span>Signing in...</span>
+                            </div>
+                        </button>
+
+                        <div class="auth-divider">
+                            <span>or continue with</span>
+                        </div>
+
+                        <!-- Social Login Options -->
+                        <div class="social-login">
+                            <button type="button" class="btn btn-social" id="google-login">
+                                <svg class="social-icon" viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                                Continue with Google
+                            </button>
+
+                            <button type="button" class="btn btn-social" id="apple-login">
+                                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                                </svg>
+                                Continue with Apple
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Sign Up Link -->
+                    <div class="auth-switch">
+                        <p>Don't have an account? <a href="register.html" class="auth-link">Sign up here</a></p>
+                    </div>
+                </div>
+
+                <!-- Auth Benefits -->
+                <div class="auth-benefits">
+                    <h3>Why Sign In?</h3>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Manage Bookings</h4>
+                                <p>View, modify, and cancel your lessons easily</p>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22,4 12,14.01 9,11.01"/>
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Track Progress</h4>
+                                <p>Monitor your learning journey and achievements</p>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Get Notifications</h4>
+                                <p>Receive reminders and updates about your lessons</p>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Secure Payments</h4>
+                                <p>Safe and convenient payment processing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forgot Password Section -->
+        <div class="forgot-password-section" id="forgot-password-section" style="display: none;">
+            <div class="container">
+                <div class="forgot-password-content">
+                    <div class="forgot-password-header">
+                        <h2>Reset Your Password</h2>
+                        <p>Enter your email address and we'll send you a link to reset your password.</p>
+                    </div>
+
+                    <form class="forgot-password-form" id="forgot-password-form">
+                        <div class="form-group">
+                            <label for="reset-email">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="reset-email" 
+                                class="form-input"
+                                placeholder="your.email@example.com"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-ghost" id="back-to-login">Back to Login</button>
+                            <button type="submit" class="btn btn-primary">Send Reset Link</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two-Factor Authentication -->
+        <div class="two-factor-section" id="two-factor-section" style="display: none;">
+            <div class="container">
+                <div class="two-factor-content">
+                    <div class="two-factor-header">
+                        <h2>Two-Factor Authentication</h2>
+                        <p>Enter the 6-digit code from your authentication app or SMS.</p>
+                    </div>
+
+                    <form class="two-factor-form" id="two-factor-form">
+                        <div class="verification-code">
+                            <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                            <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                            <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                            <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                            <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                            <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-ghost" id="resend-code">Resend Code</button>
+                            <button type="submit" class="btn btn-primary">Verify</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content simple">
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#help">Help</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <p>&copy; 2025 Pass Plus SOM. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    
+    <script>
+        // Initialize login page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if already logged in
+            const user = localStorage.getItem('user');
+            if (user) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // Initialize auth handlers
+            initializeAuth();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Lesson - Pass Plus SOM</title>
+    
+    <!-- PWA Meta -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <!-- SEO Meta -->
+    <meta name="description" content="Book your driving lesson with available instructors. Choose time, date, and location for your perfect lesson.">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/booking.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="assets/icons/logo.svg" alt="Pass Plus SOM" class="nav-logo">
+                    <span class="nav-title">Pass Plus SOM</span>
+                </a>
+            </div>
+            
+            <div class="nav-actions">
+                <a href="dashboard.html" class="btn btn-ghost">My Dashboard</a>
+                <button class="btn btn-outline" id="logout-btn">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Booking Header -->
+        <section class="booking-header">
+            <div class="container">
+                <div class="booking-breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <a href="index.html#instructors">Instructors</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span>Book Lesson</span>
+                </div>
+                
+                <h1 class="booking-title">Book Your Driving Lesson</h1>
+                <p class="booking-subtitle">Choose your preferred time and complete your booking</p>
+            </div>
+        </section>
+
+        <!-- Booking Process -->
+        <section class="booking-process">
+            <div class="container">
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <span>Instructor</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <span>Date & Time</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <span>Details</span>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
+                        <span>Payment</span>
+                    </div>
+                    <div class="step" data-step="5">
+                        <div class="step-number">5</div>
+                        <span>Confirmation</span>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="booking-container">
+                    <!-- Step 1: Instructor Selection -->
+                    <div class="booking-step active" data-step="1">
+                        <div class="step-content">
+                            <h2>Selected Instructor</h2>
+                            <div class="instructor-summary" id="instructor-summary">
+                                <!-- Dynamic content -->
+                            </div>
+                            
+                            <div class="alternative-instructors">
+                                <h3>Other Available Instructors</h3>
+                                <div class="instructor-alternatives" id="instructor-alternatives">
+                                    <!-- Dynamic content -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Date & Time Selection -->
+                    <div class="booking-step" data-step="2">
+                        <div class="step-content">
+                            <h2>Choose Date & Time</h2>
+                            
+                            <div class="datetime-container">
+                                <div class="calendar-section">
+                                    <div class="calendar-header">
+                                        <button class="btn btn-ghost btn-sm" id="prev-month">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <polyline points="15,18 9,12 15,6"></polyline>
+                                            </svg>
+                                        </button>
+                                        <h3 id="current-month">January 2025</h3>
+                                        <button class="btn btn-ghost btn-sm" id="next-month">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <polyline points="9,18 15,12 9,6"></polyline>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="calendar-grid" id="calendar-grid">
+                                        <!-- Dynamic calendar content -->
+                                    </div>
+                                </div>
+                                
+                                <div class="timeslots-section">
+                                    <h3>Available Times</h3>
+                                    <div class="selected-date" id="selected-date">
+                                        Select a date to see available times
+                                    </div>
+                                    
+                                    <div class="timeslots-grid" id="timeslots-grid">
+                                        <!-- Dynamic timeslot content -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Lesson Details -->
+                    <div class="booking-step" data-step="3">
+                        <div class="step-content">
+                            <h2>Lesson Details</h2>
+                            
+                            <form class="booking-form" id="lesson-details-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="lesson-type">Lesson Type</label>
+                                        <select id="lesson-type" class="form-select" required>
+                                            <option value="standard">Standard Lesson (1hr) - £35</option>
+                                            <option value="intensive">Intensive Lesson (2hr) - £65</option>
+                                            <option value="test_prep">Test Preparation (1hr) - £40</option>
+                                            <option value="pass_plus">Pass Plus Module - £45</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="lesson-duration">Duration</label>
+                                        <select id="lesson-duration" class="form-select" required>
+                                            <option value="60">1 Hour</option>
+                                            <option value="90">1.5 Hours</option>
+                                            <option value="120">2 Hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="pickup-postcode">Pickup Postcode</label>
+                                    <div class="input-group">
+                                        <input 
+                                            type="text" 
+                                            id="pickup-postcode" 
+                                            placeholder="e.g. SW1A 1AA"
+                                            class="form-input"
+                                            maxlength="8"
+                                            required
+                                        >
+                                        <div class="postcode-validation" id="pickup-postcode-validation">
+                                            <div class="validation-spinner"></div>
+                                            <div class="validation-result"></div>
+                                        </div>
+                                    </div>
+                                    <small class="form-help">We'll validate this postcode and calculate any area charges</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="pickup-address">Full Pickup Address</label>
+                                    <textarea 
+                                        id="pickup-address" 
+                                        class="form-textarea"
+                                        placeholder="House number, street name, any specific instructions..."
+                                        rows="3"
+                                        required
+                                    ></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lesson-notes">Special Requirements (Optional)</label>
+                                    <textarea 
+                                        id="lesson-notes" 
+                                        class="form-textarea"
+                                        placeholder="Any specific areas you'd like to focus on, accessibility needs, etc."
+                                        rows="3"
+                                    ></textarea>
+                                </div>
+                                
+                                <!-- Price Breakdown -->
+                                <div class="price-breakdown">
+                                    <h3>Price Breakdown</h3>
+                                    <div class="price-item">
+                                        <span>Base Lesson Price</span>
+                                        <span id="base-price">£35.00</span>
+                                    </div>
+                                    <div class="price-item area-charge" id="area-charge-row" style="display: none;">
+                                        <span>Area Charge</span>
+                                        <span id="area-charge">£0.00</span>
+                                    </div>
+                                    <div class="price-item total">
+                                        <span>Total</span>
+                                        <span id="total-price">£35.00</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Payment -->
+                    <div class="booking-step" data-step="4">
+                        <div class="step-content">
+                            <h2>Payment</h2>
+                            
+                            <div class="payment-container">
+                                <div class="payment-methods">
+                                    <div class="payment-method-card active" data-method="open_banking">
+                                        <div class="payment-method-header">
+                                            <div class="payment-method-icon">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M16 12v4a4 4 0 01-8 0v-4M8 8a4 4 0 118 0v4M4 12h16"/>
+                                                </svg>
+                                            </div>
+                                            <div class="payment-method-info">
+                                                <h3>Open Banking</h3>
+                                                <p>Pay directly from your bank - secure and instant</p>
+                                                <div class="payment-badge">Recommended</div>
+                                            </div>
+                                            <div class="payment-method-radio">
+                                                <input type="radio" name="payment-method" value="open_banking" checked>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="payment-method-body">
+                                            <div class="bank-selection">
+                                                <label>Select your bank:</label>
+                                                <select id="bank-select" class="form-select">
+                                                    <option value="">Choose your bank...</option>
+                                                    <option value="hsbc">HSBC</option>
+                                                    <option value="barclays">Barclays</option>
+                                                    <option value="lloyds">Lloyds</option>
+                                                    <option value="natwest">NatWest</option>
+                                                    <option value="santander">Santander</option>
+                                                    <option value="nationwide">Nationwide</option>
+                                                    <option value="other">Other Bank</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="payment-benefits">
+                                                <div class="benefit-item">
+                                                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                    </svg>
+                                                    <span>Instant payment</span>
+                                                </div>
+                                                <div class="benefit-item">
+                                                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                    </svg>
+                                                    <span>Lower fees</span>
+                                                </div>
+                                                <div class="benefit-item">
+                                                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                    </svg>
+                                                    <span>Bank-level security</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="payment-method-card" data-method="card">
+                                        <div class="payment-method-header">
+                                            <div class="payment-method-icon">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                                    <line x1="1" y1="10" x2="23" y2="10"/>
+                                                </svg>
+                                            </div>
+                                            <div class="payment-method-info">
+                                                <h3>Card Payment</h3>
+                                                <p>Pay with your debit or credit card</p>
+                                            </div>
+                                            <div class="payment-method-radio">
+                                                <input type="radio" name="payment-method" value="card">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="payment-method-body">
+                                            <div class="card-form">
+                                                <div class="form-group">
+                                                    <label for="card-number">Card Number</label>
+                                                    <input type="text" id="card-number" class="form-input" placeholder="1234 5678 9012 3456">
+                                                </div>
+                                                
+                                                <div class="form-row">
+                                                    <div class="form-group">
+                                                        <label for="card-expiry">Expiry Date</label>
+                                                        <input type="text" id="card-expiry" class="form-input" placeholder="MM/YY">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="card-cvc">CVC</label>
+                                                        <input type="text" id="card-cvc" class="form-input" placeholder="123">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="card-name">Cardholder Name</label>
+                                                    <input type="text" id="card-name" class="form-input" placeholder="John Smith">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Order Summary -->
+                                <div class="order-summary">
+                                    <h3>Order Summary</h3>
+                                    <div class="summary-item">
+                                        <span>Instructor</span>
+                                        <span id="summary-instructor">-</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span>Date & Time</span>
+                                        <span id="summary-datetime">-</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span>Lesson Type</span>
+                                        <span id="summary-lesson-type">-</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span>Duration</span>
+                                        <span id="summary-duration">-</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span>Pickup Location</span>
+                                        <span id="summary-pickup">-</span>
+                                    </div>
+                                    <div class="summary-item total">
+                                        <span>Total Amount</span>
+                                        <span id="summary-total">£0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Confirmation -->
+                    <div class="booking-step" data-step="5">
+                        <div class="step-content">
+                            <div class="confirmation-content">
+                                <div class="confirmation-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                
+                                <h2>Booking Confirmed!</h2>
+                                <p class="confirmation-message">
+                                    Your driving lesson has been successfully booked. You'll receive a confirmation email shortly.
+                                </p>
+                                
+                                <div class="booking-details" id="booking-details">
+                                    <!-- Dynamic booking details -->
+                                </div>
+                                
+                                <div class="confirmation-actions">
+                                    <a href="dashboard.html" class="btn btn-primary">View Dashboard</a>
+                                    <button class="btn btn-outline" id="add-to-calendar">Add to Calendar</button>
+                                    <button class="btn btn-ghost" id="download-receipt">Download Receipt</button>
+                                </div>
+                                
+                                <div class="next-steps">
+                                    <h3>What's Next?</h3>
+                                    <ul>
+                                        <li>Your instructor will contact you 24 hours before the lesson</li>
+                                        <li>Make sure you have your provisional license ready</li>
+                                        <li>Be ready at your pickup location 5 minutes early</li>
+                                        <li>Check your email for lesson preparation tips</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="booking-navigation">
+                        <button class="btn btn-outline" id="prev-step" style="display: none;">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="15,18 9,12 15,6"></polyline>
+                            </svg>
+                            Previous
+                        </button>
+                        
+                        <button class="btn btn-primary" id="next-step">
+                            Next
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="9,18 15,12 9,6"></polyline>
+                            </svg>
+                        </button>
+                        
+                        <button class="btn btn-primary" id="complete-booking" style="display: none;">
+                            Complete Booking
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Loading Overlay -->
+    <div id="booking-loading" class="booking-loading" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>Processing Your Booking...</h3>
+            <p>Please don't close this window</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/payments.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+</html>

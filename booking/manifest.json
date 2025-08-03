@@ -1,0 +1,143 @@
+{
+  "name": "Pass Plus SOM - Driving Lessons",
+  "short_name": "Pass Plus SOM",
+  "description": "Book driving lessons with qualified instructors across the UK",
+  "version": "1.0.0",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "scope": "/",
+  
+  "icons": [
+    {
+      "src": "assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  
+  "shortcuts": [
+    {
+      "name": "Book a Lesson",
+      "short_name": "Book",
+      "description": "Quickly book a driving lesson",
+      "url": "/index.html#instructors",
+      "icons": [
+        {
+          "src": "assets/icons/shortcut-book.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "My Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your lessons and progress",
+      "url": "/dashboard.html",
+      "icons": [
+        {
+          "src": "assets/icons/shortcut-dashboard.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Find Instructors",
+      "short_name": "Instructors",
+      "description": "Search for driving instructors",
+      "url": "/index.html#instructors",
+      "icons": [
+        {
+          "src": "assets/icons/shortcut-search.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  
+  "categories": [
+    "education",
+    "lifestyle",
+    "travel"
+  ],
+  
+  "screenshots": [
+    {
+      "src": "assets/screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Home page showing instructor search and features"
+    },
+    {
+      "src": "assets/screenshots/mobile-booking.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile booking flow with calendar selection"
+    },
+    {
+      "src": "assets/screenshots/desktop-dashboard.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide", 
+      "label": "Pupil dashboard with upcoming lessons and progress"
+    }
+  ],
+  
+  "prefer_related_applications": false,
+  
+  "features": [
+    "Cross Platform",
+    "Fast",
+    "Installable"
+  ],
+  
+  "lang": "en-GB",
+  "dir": "ltr"
+}

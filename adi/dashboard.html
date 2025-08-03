@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driving School Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f6f8fa;
+            color: #222;   
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 220px;
+            background: #262A36;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar h2 {
+            font-size: 1.4em;
+            margin: 24px 0 12px 24px;
+            font-weight: 700;
+        }
+        .sidebar nav {
+            flex: 1 1 auto;
+        }
+        .sidebar a {
+            display: block;
+            padding: 12px 28px;
+            color: #bfc8de;
+            text-decoration: none;
+            transition: background 0.12s;
+            font-size: 1.06em;
+        }
+        .sidebar a.active, .sidebar a:hover {
+            background: #1a1d24;
+            color: #42d1a3;
+        }
+        .main {
+            margin-left: 220px;
+            padding: 32px;
+        }
+        .header {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            border-bottom: 1px solid #e2e6ed;
+            margin-bottom: 32px;
+            padding: 0 24px;
+        }
+        .header h1 {
+            font-size: 1.7em;
+        }
+        .widgets {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .widget {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px 0 #d8e2ef33;
+            padding: 28px 30px;
+            min-width: 200px;
+            flex: 1 1 220px;
+        }
+        .widget-title {
+            color: #67748e;
+            font-size: 1.02em;
+            font-weight: 500;
+        }
+        .widget-value {
+            font-size: 2em;
+            font-weight: 700;
+        }
+        .calendar-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px 0 #d8e2ef18;
+            padding: 24px 32px 32px 32px;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .calendar-header button {
+            background: none;
+            border: none;
+            color: #42d1a3;
+            font-size: 1.3em;
+            cursor: pointer;
+        }
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .calendar-table th, .calendar-table td {
+            width: 14.28%;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 1em;
+            border-radius: 6px;
+        }
+        .calendar-table th {
+            color: #67748e;
+            font-weight: 600;
+        }
+        .calendar-table td.today {
+            background: #42d1a3;
+            color: #fff;
+            font-weight: 600;
+        }
+        .calendar-table td {
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+        .calendar-table td:hover {
+            background: #e6faf3;
+        }
+        @media (max-width: 900px) {
+            .sidebar { width: 170px; }
+            .main { margin-left: 170px; padding: 16px; }
+            .widgets { gap: 12px; }
+            .calendar-container { padding: 12px 6px; }
+        }
+        @media (max-width: 700px) {
+            .sidebar { display: none; }
+            .main { margin-left: 0; padding: 6px; }
+            .header { padding: 0 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>PassPlusSom</h2>
+        <nav>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="#">Calendar</a>
+            <a href="#">Bookings</a>
+            <a href="pupils.html">Students</a>
+            <a href="my-details.html">My Details</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+    </div>
+    <div class="main">
+        <div class="header">
+            <h1>Dashboard</h1>
+            <div>Instructor: <strong>Jane Doe</strong></div>
+        </div>
+        <div class="widgets">
+            <div class="widget">
+                <div class="widget-title">Upcoming Lessons</div>
+                <div class="widget-value">5</div>
+            </div>
+            <div class="widget">
+                <div class="widget-title">Total Students</div>
+                <div class="widget-value">17</div>
+            </div>
+            <div class="widget">
+                <div class="widget-title">Earnings (This Month)</div>
+                <div class="widget-value">£520</div>
+            </div>
+        </div>
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prevMonth">&#8592;</button>
+                <span id="calendarMonth"></span>
+                <button id="nextMonth">&#8594;</button>
+            </div>
+            <table class="calendar-table">
+                <thead>
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                </thead>
+                <tbody id="calendarBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+<script>
+// Simple calendar JS (static, monthly navigation)
+const calendarMonth = document.getElementById('calendarMonth');
+const calendarBody = document.getElementById('calendarBody');
+const today = new Date();
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+
+function renderCalendar(month, year) {
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+        'August', 'September', 'October', 'November', 'December'];
+    calendarMonth.textContent = `${monthNames[month]} ${year}`;
+    // Get first day and number of days
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    let html = '';
+    let date = 1;
+    for (let i = 0; i < 6; i++) {
+        html += '<tr>';
+        for (let j = 0; j < 7; j++) {
+            if (i === 0 && j < firstDay) {
+                html += '<td></td>';
+            } else if (date > daysInMonth) {
+                html += '<td></td>';
+            } else {
+                let classes = '';
+                if (
+                    date === today.getDate() &&
+                    month === today.getMonth() &&
+                    year === today.getFullYear()
+                ) {
+                    classes = 'today';
+                }
+                html += `<td class='${classes}'>${date}</td>`;
+                date++;
+            }
+        }
+        html += '</tr>';
+        if (date > daysInMonth) break;
+    }
+    calendarBody.innerHTML = html;
+}
+
+renderCalendar(currentMonth, currentYear);
+
+document.getElementById('prevMonth').onclick = function () {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    renderCalendar(currentMonth, currentYear);
+};
+document.getElementById('nextMonth').onclick = function () {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    renderCalendar(currentMonth, currentYear);
+};
+</script>
+</body>
+</html>
+

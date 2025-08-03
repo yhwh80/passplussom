@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pass Plus S.O.M. - Settings</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-blue-600 text-white p-4">
+    <a href="index.html" class="font-bold mr-4">Dashboard</a>
+    <a href="pupils.html" class="mr-4">Pupils</a>
+    <a href="lessons.html" class="mr-4">Lessons</a>
+    <a href="skills.html" class="mr-4">Skills</a>
+    <a href="payments.html" class="mr-4">Payments</a>
+    <a href="settings.html" class="mr-4">Settings</a>
+    <a href="logout.html" class="mr-4">Logout</a>
+  </nav>
+  <main class="container mx-auto p-6">
+    <h2 class="text-3xl font-bold text-gray-800">Instructor Settings</h2>
+    <p class="text-gray-600 mb-6">Update your instructor profile and preferences here.</p>
+    <div class="bg-white rounded-lg shadow-md p-6 mt-4">
+      <form id="instructor-settings-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" name="full_name" required class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email-settings" name="email" required class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone-settings" name="phone" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="hourly-rate">Hourly Rate (£)</label>
+            <input type="number" id="hourly-rate" name="hourly_rate" step="0.01" min="0" class="form-input">
+          </div>
+        </div>
+        <div class="form-actions mt-4">
+          <button type="submit" class="btn-primary">Save Settings</button>
+        </div>
+      </form>
+    </div>
+  </main>
+  <script type="module" src="js/settings.js"></script>
+</body>
+</html>
+

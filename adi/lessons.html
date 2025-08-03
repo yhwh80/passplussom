@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pass Plus S.O.M. - Lessons</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-blue-600 text-white p-4">
+    <a href="index.html" class="font-bold mr-4">Dashboard</a>
+    <a href="pupils.html" class="mr-4">Pupils</a>
+    <a href="lessons.html" class="mr-4">Lessons</a>
+    <a href="skills.html" class="mr-4">Skills</a>
+    <a href="payments.html" class="mr-4">Payments</a>
+    <a href="settings.html" class="mr-4">Settings</a>
+    <a href="logout.html" class="mr-4">Logout</a>
+  </nav>
+  <main class="container mx-auto p-6">
+    <h2 class="text-3xl font-bold text-gray-800">Lesson Management</h2>
+    <p class="text-gray-600 mb-6">Manage, schedule, and review your lessons here.</p>
+    <div id="lessons-calendar" class="bg-white rounded-lg shadow-md p-6 mt-4">
+      <h3 class="text-xl font-bold mb-4">Calendar</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-center border">
+          <thead>
+            <tr>
+              <th class="p-2 border">Sun</th>
+              <th class="p-2 border">Mon</th>
+              <th class="p-2 border">Tue</th>
+              <th class="p-2 border">Wed</th>
+              <th class="p-2 border">Thu</th>
+              <th class="p-2 border">Fri</th>
+              <th class="p-2 border">Sat</th>
+            </tr>
+          </thead>
+          <tbody id="calendar-body">
+            <!-- Calendar days generated here -->
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-6">
+        <button id="add-lesson-btn" class="btn-primary">+ Add Lesson</button>
+      </div>
+      <div id="lesson-form-modal" class="hidden mt-6">
+        <h4 class="font-bold mb-2">Schedule a Lesson</h4>
+        <form id="add-lesson-form" class="bg-gray-100 rounded p-4">
+          <input type="text" id="lesson-title" placeholder="Title (optional)" class="form-input block mb-2 w-full"/>
+          <input type="date" id="lesson-date" required class="form-input block mb-2 w-full"/>
+          <input type="time" id="lesson-time" required class="form-input block mb-2 w-full"/>
+          <input type="text" id="lesson-pupil" required placeholder="Pupil Name" class="form-input block mb-2 w-full"/>
+          <button type="submit" class="btn-success">Create Lesson</button>
+          <button type="button" id="cancel-lesson" class="btn-secondary ml-2">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="js/lessons.js"></script>
+</body>
+</html>
+
