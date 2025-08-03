@@ -337,13 +337,11 @@ function hideAddPupilForm() {
 
 // Lesson form functions
 function showAddLessonForm() {
-    console.log('Show lesson form - coming soon!');
     // TODO: Implement lesson form
 }
 
 // Initialize page on load
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Page loaded, initializing...');
     // Start with dashboard page
     const dashboardSection = document.getElementById('dashboard-section');
     if (dashboardSection) {

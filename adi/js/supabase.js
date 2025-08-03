@@ -8,7 +8,7 @@ function initSupabase() {
                 CONFIG.supabase.url,
                 CONFIG.supabase.anonKey
             );
-            console.log('✅ Supabase initialized successfully');
+            // Supabase initialized successfully
             return supabase;
         } catch (error) {
             console.error('❌ Failed to initialize Supabase:', error);
